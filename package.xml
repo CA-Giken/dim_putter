@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dim_putter</name>
+  <version>1.0.0</version>
+  <description>Auto Dimension Putter</description>
+  <maintainer email="ca-giken@c-able.ne.jp">KazukiHiraizumi</maintainer>
+  <license>BSD</license>
+  <url type="website">http://github.com/CA-Giken/dim_upper</url>
+  <author email="ca-giken@c-able.ne.jp">KazukiHiraizumi</author>
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

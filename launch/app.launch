@@ -1,0 +1,20 @@
+<launch>
+  <rosparam command="load" file="$(find dim_putter)/config.yaml" />
+  <rosparam command="load" file="$(find dim_putter)/rcalib.yaml" />
+  <node pkg="rovi_utils" type="cropper.py" name="" output="screen">
+    <remap from="~config" to="/config/cropper" />
+    <remap from="~param" to="/cropper" />
+    <remap from="~update" to="/update/cropper" />
+    <remap from="~capture" to="/request/capture" />
+    <remap from="~captured" to="/response/capture" />
+    <remap from="~clear" to="/request/clear" />
+    <remap from="~redraw" to="/request/redraw" />
+    <remap from="~in/floats" to="/sensors/capt_floats" />
+    <remap from="~out/floats" to="/scene/floats" />
+    <remap from="~raw/floats" to="/scene/raw_floats" />
+  </node>
+  <node pkg="rovi" type="floats2pc" name="" args="camera">
+    <remap from="floats" to="/scene/floats" />
+    <remap from="pc" to="/scene/pc" />
+  </node>
+</launch>

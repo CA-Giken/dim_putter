@@ -1,0 +1,12 @@
+<launch>
+  <node pkg="dim_putter" type="vscener.py" name="" output="screen" />
+  <node pkg="rovi" type="floats2pc" name="" args="base">
+    <remap from="floats" to="/virtual/scene_floats" />
+    <remap from="pc" to="/sensors/scene_pc" />
+  </node>
+  <node pkg="dim_putter" type="vcam.py" name="" output="screen" >
+    <remap from="scene_floats" to="/virtual/scene_floats" />
+  </node>
+  <node pkg="dim_putter" type="vjogger.py" name="" />
+  <node pkg="dim_putter" type="phoxi.py" name="" />
+</launch>

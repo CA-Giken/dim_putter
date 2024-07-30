@@ -1,0 +1,11 @@
+<launch>
+  <rosparam command="load" file="$(find dim_putter)/dashboard.yaml" />
+  <rosparam command="load" file="$(find dim_putter)/config.yaml" />
+  <node pkg="rovi_utils" type="config_tf.py" name="config_tf" />
+  <node pkg="rtk_tools" type="dashboard.py" required="true" name="" args="load:=dim_putter/dashboard.yaml" output="screen">
+    <remap from="~load" to="/request/recipe_load" />
+    <remap from="~loaded" to="/request/model_load" />
+    <remap from="~failed" to="/response/recipe_load" />
+    <remap from="~opened" to="/response/recipe_open" />
+  </node>
+</launch>

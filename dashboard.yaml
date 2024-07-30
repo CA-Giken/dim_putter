@@ -1,0 +1,56 @@
+config:
+  dashboard:
+#    load: rovi_visual_teach/rc.d/urJ6.yaml
+#    recipe:
+#      link: rovi_csp/recipe
+#      dir: rovi_csp/recipe.d
+    altitude: '+0'
+    message:
+      halt: "を停止します"
+    font:
+      size: 10
+    color:
+      background: "#00AAFF"
+      lit: "#FF7700"
+      unlit: "#888888"
+      mask: "#222222"
+    launch_camera:
+      label: "カメラ"
+      package: rovi
+      file: ycam3sxga.launch
+    launch_vcam:
+      label: "V-CAM"
+      package: dim_putter
+      file: sim.launch
+    launch_app:
+      label: "採寸"
+      package: dim_putter
+      file: app.launch
+    launch_rcalib:
+      label: "キャリブ"
+      package: dim_putter
+      file: rcalib.launch
+      args:
+        result: dim_putter/rcalib.yaml
+    launch_viewer:
+      label: "Viewer"
+      package: dim_putter
+      file: viewer.launch
+    launch_setup:
+      label: "セットアップ"
+      package: dim_putter
+      file: setup.launch
+
+    indicator7:
+      label: "温度"
+      topic: /watchdog/inner_temp
+      type: std_msgs/Float32
+      timeout: 2
+      range: ["in",40,999]
+      format: "4.1f"
+
+  panel:
+    color:
+      background: "#00AAFF"
+    lift: false
+

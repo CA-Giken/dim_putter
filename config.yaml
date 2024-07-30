@@ -1,0 +1,52 @@
+config:
+  cropper:
+    capture_frame_id: ["camera","flange"]
+    relay: /sensors/X1
+
+cropper:
+  cropR: 0
+  cropZ: 0
+  cropZup: 0
+  ladC: 0
+  ladW: 0
+  mesh: 0
+  nfmin: 20
+  nfrad: 5
+
+config_tf:
+  base:
+    parent_frame_id: world
+    transform:
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+      translation:
+        x: 0
+        y: 0
+        z: 0
+  tool0_controller:
+    parent_frame_id: base
+    transform:
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+      translation:
+        x: 0
+        y: 0
+        z: 300
+  camera:
+    parent_frame_id: tool0_controller
+    transform:
+      rotation:
+        x: 9.23879533e-01
+        y: -1.05996086e-06
+        z: -4.39324875e-07
+        w: 3.82683431e-01
+      translation:
+        x: 0
+        y: 400
+        z: 0
