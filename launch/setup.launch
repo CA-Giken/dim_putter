@@ -1,6 +1,6 @@
 <launch>
   <node pkg="rtk_tools" type="panel.py" output="screen" name="" args="
-  conf:=$(find dim_putter)/setup.zui" >
+  conf:=$(find saisun3d)/setup.zui" >
     <remap from="~loads" to="/request/recipe_load" />
     <remap from="~open" to="/response/recipe_open" />
   </node>

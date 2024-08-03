@@ -1,6 +1,6 @@
 <launch>
-  <rosparam command="load" file="$(find dim_putter)/config.yaml" />
-  <rosparam command="load" file="$(find dim_putter)/rcalib.yaml" />
+  <rosparam command="load" file="$(find saisun3d)/config.yaml" />
+  <rosparam command="load" file="$(find saisun3d)/rcalib.yaml" />
   <node pkg="rovi_utils" type="cropper.py" name="" output="screen">
     <remap from="~config" to="/config/cropper" />
     <remap from="~param" to="/cropper" />

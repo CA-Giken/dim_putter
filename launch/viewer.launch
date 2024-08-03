@@ -1,3 +1,3 @@
 <launch>
-  <node pkg="rviz" type="rviz" name="" args="-d $(find dim_putter)/default.rviz" />
+  <node pkg="rviz" type="rviz" name="" args="-d $(find saisun3d)/default.rviz" />
 </launch>

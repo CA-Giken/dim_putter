@@ -37,16 +37,16 @@ config_tf:
       translation:
         x: 0
         y: 0
-        z: 300
+        z: 450
   camera:
     parent_frame_id: tool0_controller
     transform:
       rotation:
-        x: 9.23879533e-01
-        y: -1.05996086e-06
-        z: -4.39324875e-07
-        w: 3.82683431e-01
+        x: 1
+        y: 0
+        z: 0
+        w: 0
       translation:
         x: 0
-        y: 400
+        y: 0
         z: 0

@@ -32,7 +32,7 @@ T2=tflib.toRT(tr2)
 sc2 = Vector3(450,400,150)
 
 while not rospy.is_shutdown():
-  mesh_file1 = "package://dim_putter/mesh/PhoXi_S.f.STL"
+  mesh_file1 = "package://saisun3d/mesh/PhoXi_S.f.STL"
   markers.publishMesh(T1,mesh_file1,'white', sc1, 0.5)
   markers.publishCube(T2,(0.1,0.1,0.1,0.05), sc2, 0.5)
   rospy.Rate(5).sleep() #5Hz

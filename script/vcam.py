@@ -86,7 +86,7 @@ def cb_capture(msg):
 
 ########################################################
 rospy.init_node("vcam",anonymous=True)
-thispath=subprocess.getoutput("rospack find dim_putter")
+thispath=subprocess.getoutput("rospack find saisun3d")
 ###Load params
 try:
   Config.update(rospy.get_param("/config/vcam"))

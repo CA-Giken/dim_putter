@@ -1,8 +1,8 @@
 <launch>
-  <rosparam command="load" file="$(find dim_putter)/dashboard.yaml" />
-  <rosparam command="load" file="$(find dim_putter)/config.yaml" />
+  <rosparam command="load" file="$(find saisun3d)/dashboard.yaml" />
+  <rosparam command="load" file="$(find saisun3d)/config.yaml" />
   <node pkg="rovi_utils" type="config_tf.py" name="config_tf" />
-  <node pkg="rtk_tools" type="dashboard.py" required="true" name="" args="load:=dim_putter/dashboard.yaml" output="screen">
+  <node pkg="rtk_tools" type="dashboard.py" required="true" name="" args="load:=saisun3d/dashboard.yaml">
     <remap from="~load" to="/request/recipe_load" />
     <remap from="~loaded" to="/request/model_load" />
     <remap from="~failed" to="/response/recipe_load" />

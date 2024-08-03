@@ -61,7 +61,7 @@ def parse_argv(argv):
 
 ########################################################
 rospy.init_node("vstacker",anonymous=True)
-thispath=subprocess.getoutput("rospack find dim_putter")
+thispath=subprocess.getoutput("rospack find saisun3d")
 ###Load params
 try:
   Config.update(rospy.get_param("/config/vscener"))

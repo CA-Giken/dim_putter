@@ -20,25 +20,25 @@ config:
       file: ycam3sxga.launch
     launch_vcam:
       label: "V-CAM"
-      package: dim_putter
+      package: saisun3d
       file: sim.launch
     launch_app:
       label: "採寸"
-      package: dim_putter
+      package: saisun3d
       file: app.launch
     launch_rcalib:
       label: "キャリブ"
-      package: dim_putter
+      package: saisun3d
       file: rcalib.launch
       args:
-        result: dim_putter/rcalib.yaml
+        result: saisun3d/rcalib.yaml
     launch_viewer:
       label: "Viewer"
-      package: dim_putter
+      package: saisun3d
       file: viewer.launch
     launch_setup:
       label: "セットアップ"
-      package: dim_putter
+      package: saisun3d
       file: setup.launch
 
     indicator7:
