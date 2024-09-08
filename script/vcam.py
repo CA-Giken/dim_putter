@@ -10,10 +10,10 @@ import os
 import sys
 import subprocess
 import copy
-from rovi.msg import Floats
-from rospy.numpy_msg import numpy_msg
 from std_msgs.msg import Bool
 from geometry_msgs.msg import Transform
+from sensor_msgs.msg import PointCloud2
+from saisun3d import open3d_conversions
 from rovi_utils import tflib
 
 Config={
@@ -23,15 +23,11 @@ Config={
   "trim_y":250,
   "trim_far":600,
   "trim_near":380,
-  "view":[[-200,0,0],[200,0,0]],
+  "view":[[-10,0,0]],
+#  "view":[[-200,0,0],[200,0,0]],
   "view_r":50000,
   "hidden":True
 }
-
-def np2F(d):  #numpy to Floats
-  f=Floats()
-  f.data=np.ravel(d)
-  return f
 
 def getRT(base,ref):
   try:
@@ -44,8 +40,8 @@ def getRT(base,ref):
 
 def cb_ps(msg):
   global Scene
-  Scene=np.reshape(msg.data,(-1,3))
-  print("vcam sub scene",Scene.shape)
+  Scene=open3d_conversions.from_msg(msg)
+  print("vcam sub scene",len(Scene.points))
   return
 
 def cb_capture(msg):
@@ -54,7 +50,8 @@ def cb_capture(msg):
   except Exception as e:
     print("get_param exception:",e.args)
   RT=getRT(Config["target_frame_id"],Config["source_frame_id"])
-  scn_1=np.vstack((Scene.T,np.ones(len(Scene))))
+  scn0=np.array(Scene.points)
+  scn_1=np.vstack((scn0.T,np.ones(len(scn0))))
   scn_1=RT.dot(scn_1)
   scn=scn_1[:3].T
   scn=scn[np.abs(np.ravel(scn_1[1]))<Config["trim_y"]/2]
@@ -81,7 +78,8 @@ def cb_capture(msg):
       pset=pset.union(set(pm))
     plst=np.array(list(pset))
     pcd=pcd.select_by_index(plst)
-  pub_ps.publish(np2F(np.array(pcd.points)))
+  pc2=open3d_conversions.to_msg(pcd,frame_id="camera")
+  pub_pc2.publish(pc2)
   pub_done.publish(mTrue)
 
 ########################################################
@@ -93,16 +91,15 @@ try:
 except Exception as e:
   print("get_param exception:",e.args)
 ###Topics
-rospy.Subscriber("scene_floats",numpy_msg(Floats),cb_ps)
+rospy.Subscriber("~scene_pc2",PointCloud2,cb_ps)
 rospy.Subscriber("/sensors/X1",Bool,cb_capture)
-pub_ps=rospy.Publisher("/sensors/capt_floats",numpy_msg(Floats),queue_size=1)
+pub_pc2=rospy.Publisher("/sensors/capt_pc2",PointCloud2,queue_size=1)
 pub_done=rospy.Publisher("/sensors/Y1",Bool,queue_size=1)
 ###Globals
 mTrue=Bool();mTrue.data=True
 mFalse=Bool()
 tfBuffer=tf2_ros.Buffer()
 listener=tf2_ros.TransformListener(tfBuffer)
-Scene=np.array([]).reshape((-1,3))
 
 #if __name__=="__main__":
 #

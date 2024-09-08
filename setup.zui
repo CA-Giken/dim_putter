@@ -1,9 +1,4 @@
 "class":"Title",  "label":"カメラ"
-"class":"Pub",    "name":"/request/clear","label":"クリア"
-"class":"Pub",    "name":"/request/capture","label":"撮影"
-#"class":"Pub",    "name":"/request/solve","label":"解析"
-
-"class":"Title",  "label":"ジョグ"
-"class":"Pub",    "name":"/driver/jog_rz","label":"Rz+","data":".data=True"
-"class":"Pub",    "name":"/driver/jog_rz","label":"Rz-","data":".data=False"
+"class":"Pub",    "name":"/sensors/X1","label":"撮影"
+#"class":"Pub",    "name":"/sensors/X2","label":"解析"
 

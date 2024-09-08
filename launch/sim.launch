@@ -1,12 +1,8 @@
 <launch>
   <node pkg="saisun3d" type="vscener.py" name="" output="screen" />
-  <node pkg="rovi" type="floats2pc" name="" args="base">
-    <remap from="floats" to="/virtual/scene_floats" />
-    <remap from="pc" to="/sensors/scene_pc" />
-  </node>
   <node pkg="saisun3d" type="vcam.py" name="" output="screen" >
-    <remap from="scene_floats" to="/virtual/scene_floats" />
+    <remap from="~scene_pc2" to="/virtual/scene_pc2" />
   </node>
-  <node pkg="saisun3d" type="vjogger.py" name="" />
   <node pkg="saisun3d" type="phoxi.py" name="" />
+  <node pkg="saisun3d" type="work.py" name="" />
 </launch>

@@ -11,22 +11,17 @@ import rospy
 import tf
 import tf2_ros
 from scipy.spatial.transform import Rotation as rot
-from rovi.msg import Floats
-from rospy.numpy_msg import numpy_msg
 from std_msgs.msg import Bool
 from std_msgs.msg import Int32
 from std_msgs.msg import String
 from geometry_msgs.msg import Transform
+from sensor_msgs.msg import PointCloud2
+from saisun3d import open3d_conversions
 from rovi_utils import tflib
 
 Config={
   "model":"mesh/TestPiece.ply",
 }
-
-def np2F(d):  #numpy to Floats
-  f=Floats()
-  f.data=np.ravel(d)
-  return f
 
 def getRT(base,ref):
   try:
@@ -41,7 +36,8 @@ def cb_redraw(msg):
   global pModel
   pModel=o3d.io.read_point_cloud(thispath+'/'+Config['model'])
   print("vstacker::points",len(pModel.points))
-  pub_wp.publish(np2F(np.array(pModel.points)))
+  pc2=open3d_conversions.to_msg(pModel,frame_id="world")
+  pub_pc2.publish(pc2)
 
 def cb_loadPcd(ev):
   global pModel
@@ -60,7 +56,7 @@ def parse_argv(argv):
   return args
 
 ########################################################
-rospy.init_node("vstacker",anonymous=True)
+rospy.init_node("vscener",anonymous=True)
 thispath=subprocess.getoutput("rospack find saisun3d")
 ###Load params
 try:
@@ -73,7 +69,7 @@ except Exception as e:
 #  print("get_param exception:",e.args)
 ###Topics
 rospy.Subscriber("/request/redraw",Bool,cb_redraw)
-pub_wp=rospy.Publisher("/virtual/scene_floats",numpy_msg(Floats),queue_size=1)
+pub_pc2=rospy.Publisher("/virtual/scene_pc2",PointCloud2,queue_size=1)
 ###TF
 tfBuffer=tf2_ros.Buffer()
 listener=tf2_ros.TransformListener(tfBuffer)

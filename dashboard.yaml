@@ -41,14 +41,6 @@ config:
       package: saisun3d
       file: setup.launch
 
-    indicator7:
-      label: "温度"
-      topic: /watchdog/inner_temp
-      type: std_msgs/Float32
-      timeout: 2
-      range: ["in",40,999]
-      format: "4.1f"
-
   panel:
     color:
       background: "#00AAFF"
