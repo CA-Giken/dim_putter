@@ -26,7 +26,8 @@ Config={
   "view":[[-10,0,0]],
 #  "view":[[-200,0,0],[200,0,0]],
   "view_r":50000,
-  "hidden":True
+  "hidden":True,
+  "model":"mesh/OuterFrame.ply",
 }
 
 def getRT(base,ref):
@@ -78,7 +79,15 @@ def cb_capture(msg):
       pset=pset.union(set(pm))
     plst=np.array(list(pset))
     pcd=pcd.select_by_index(plst)
-  pc2=open3d_conversions.to_msg(pcd,frame_id="camera")
+  pc2=open3d_conversions.to_msg(pcd,frame_id=Config["target_frame_id"])
+  pub_pc2.publish(pc2)
+  pub_done.publish(mTrue)
+
+def cb_load(msg):
+  pcd=o3d.io.read_point_cloud(thispath+'/'+Config['model'])
+  print("vcam load ply",len(pcd.points))
+  dwnpc=pcd.voxel_down_sample(1.0)
+  pc2=open3d_conversions.to_msg(dwnpc,frame_id=Config["target_frame_id"])
   pub_pc2.publish(pc2)
   pub_done.publish(mTrue)
 
@@ -92,7 +101,8 @@ except Exception as e:
   print("get_param exception:",e.args)
 ###Topics
 rospy.Subscriber("~scene_pc2",PointCloud2,cb_ps)
-rospy.Subscriber("/sensors/X1",Bool,cb_capture)
+rospy.Subscriber("/sensors/X1",Bool,cb_capture) #emurates capture pcd(:world) and publish
+rospy.Subscriber("/sensors/X10",Bool,cb_load)   #loads pcd(:camera) from file and publish
 pub_pc2=rospy.Publisher("/sensors/capt_pc2",PointCloud2,queue_size=1)
 pub_done=rospy.Publisher("/sensors/Y1",Bool,queue_size=1)
 ###Globals

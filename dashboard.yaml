@@ -16,8 +16,8 @@ config:
       mask: "#222222"
     launch_camera:
       label: "カメラ"
-      package: rovi
-      file: ycam3sxga.launch
+      package: saisun3d
+      file: phoxi.launch
     launch_vcam:
       label: "V-CAM"
       package: saisun3d

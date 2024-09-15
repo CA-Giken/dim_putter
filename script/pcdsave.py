@@ -4,10 +4,11 @@ import numpy as np
 import roslib
 import rospy
 import open3d as o3d
-from rovi.msg import Floats
-from rospy.numpy_msg import numpy_msg
 from std_msgs.msg import Bool
 from geometry_msgs.msg import Transform
+from geometry_msgs.msg import Transform
+from sensor_msgs.msg import PointCloud2
+from saisun3d import open3d_conversions
 from rovi_utils import tflib
 import subprocess
 
@@ -17,11 +18,9 @@ Config={
 
 
 def cb_ps(msg):
-  pvecs=np.reshape(msg.data,(-1,3))
-  pcd=o3d.geometry.PointCloud()
-  pcd.points=o3d.utility.Vector3dVector(pvecs)
+  pcd=open3d_conversions.from_msg(msg)
   o3d.io.write_point_cloud(thispath+'/'+Config["ply"],pcd,True,False)
-  print("pcd save",len(pvecs))
+  print("pcd save",len(pcd.points))
   return
 
 ########################################################
@@ -33,7 +32,7 @@ try:
 except Exception as e:
   print("get_param exception:",e.args)
 ###Topics
-rospy.Subscriber("~in/floats",numpy_msg(Floats),cb_ps)
+rospy.Subscriber("/sensors/capt_pc2",PointCloud2,cb_ps)
 ###Globals
 mTrue=Bool();mTrue.data=True
 mFalse=Bool()

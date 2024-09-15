@@ -1,4 +1,5 @@
 "class":"Title",  "label":"カメラ"
 "class":"Pub",    "name":"/sensors/X1","label":"撮影"
+"class":"Pub",    "name":"/sensors/X10","label":"Capt PLY file"
 #"class":"Pub",    "name":"/sensors/X2","label":"解析"
 

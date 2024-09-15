@@ -1,0 +1,4 @@
+<launch>
+  <rosparam command="load" file="$(find saisun3d)/config.yaml" />
+  <node pkg="saisun3d" type="phoxi.py" name="" output="screen" />
+</launch>
